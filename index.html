@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartExaminer - AI-Powered Examination App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+            --warning-color: #f8961e;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #4895ef;
+            --secondary-color: #560bad;
+            --light-color: #121212;
+            --dark-color: #f8f9fa;
+            --gray-color: #adb5bd;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-color);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+        }
+
+        .sidebar {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            height: fit-content;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu li.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-menu li:hover:not(.active) {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--gray-color);
+            border-radius: var(--border-radius);
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .upload-area i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .file-types {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .file-type {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: rgba(67, 97, 238, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-color);
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .option-card {
+            border: 2px solid var(--gray-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .progress-container {
+            margin: 30px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-container {
+            display: none;
+        }
+
+        .question-card {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-color);
+        }
+
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option {
+            padding: 12px 15px;
+            border: 1px solid var(--gray-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .results-container {
+            display: none;
+        }
+
+        .score-card {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+        }
+
+        .score-value {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .performance-chart {
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .chart-bar {
+            width: 50px;
+            background-color: white;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .feedback-section {
+            margin-top: 30px;
+        }
+
+        .feedback-item {
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+            margin-bottom: 15px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .auth-tab.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>SmartExaminer</span>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-outline" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button class="btn btn-primary" id="signupBtn">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li class="active"><i class="fas fa-home"></i> Dashboard</li>
+                    <li><i class="fas fa-upload"></i> Upload Materials</li>
+                    <li><i class="fas fa-history"></i> Exam History</li>
+                    <li><i class="fas fa-chart-line"></i> Performance Analytics</li>
+                    <li><i class="fas fa-cog"></i> Settings</li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-upload"></i> Upload Course Materials</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drag & Drop your files here</h3>
+                        <p>or click to browse</p>
+                        <div class="file-types">
+                            <div class="file-type"><i class="fas fa-file-pdf"></i> PDF</div>
+                            <div class="file-type"><i class="fas fa-file-word"></i> Word</div>
+                            <div class="file-type"><i class="fas fa-file-image"></i> Images</div>
+                            <div class="file-type"><i class="fas fa-file-alt"></i> Text</div>
+                        </div>
+                    </div>
+                    <p>Or enter course details manually:</p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Course Title">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="4" placeholder="Course Outline or Description"></textarea>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-brain"></i> Extract Topics & Concepts
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title"><i class="fas fa-cogs"></i> Exam Configuration</h2>
+                    <div class="form-group">
+                        <label class="form-label">Exam Type</label>
+                        <div class="options-grid">
+                            <div class="option-card selected">
+                                <i class="fas fa-list-ol"></i>
+                                <h3>Objective</h3>
+                                <p>Multiple Choice Questions</p>
+                            </div>
+                            <div class="option-card">
+                                <i class="fas fa-pen"></i>
+                                <h3>Short Answer</h3>
+                                <p>Brief written responses</p>
+                            </div>
+                            <div class="option-card">
+                                <i class="fas fa-file-alt"></i>
+                                <h3>Essay</h3>
+                                <p>Long form answers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Difficulty Level</label>
+                        <div class="options-grid">
+                            <div class="option-card selected">
+                                <i class="fas fa-seedling"></i>
+                                <h3>Beginner</h3>
+                                <p>Basic concepts</p>
+                            </div>
+                            <div class="option-card">
+                                <i class="fas fa-mountain"></i>
+                                <h3>Intermediate</h3>
+                                <p>Moderate challenge</p>
+                            </div>
+                            <div class="option-card">
+                                <i class="fas fa-fire"></i>
+                                <h3>Advanced</h3>
+                                <p>Expert level</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Time Intensity</label>
+                        <div class="options-grid">
+                            <div class="option-card">
+                                <i class="fas fa-couch"></i>
+                                <h3>Relaxed</h3>
+                                <p>No time pressure</p>
+                            </div>
+                            <div class="option-card selected">
+                                <i class="fas fa-walking"></i>
+                                <h3>Moderate</h3>
+                                <p>Balanced pace</p>
+                            </div>
+                            <div class="option-card">
+                                <i class="fas fa-running"></i>
+                                <h3>Challenging</h3>
+                                <p>Time constrained</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="generateExamBtn">
+                        <i class="fas fa-rocket"></i> Generate Exam
+                    </button>
+                </div>
+
+                <div class="card quiz-container" id="quizContainer">
+                    <h2 class="card-title"><i class="fas fa-file-alt"></i> AI-Generated Exam</h2>
+                    <div class="timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="timerDisplay">25:00</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 30%"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <span>Question 3 of 10</span>
+                            <span>30% Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <h3 class="question-text">Which of the following best describes the concept of 'Machine Learning'?</h3>
+                        <ul class="options-list">
+                            <li class="option">A branch of computer science that focuses on building algorithms that can learn from and make predictions on data</li>
+                            <li class="option selected">The process of teaching computers to perform tasks by providing explicit instructions</li>
+                            <li class="option">A method of organizing data in a structured format for efficient retrieval</li>
+                            <li class="option">The study of computer hardware and its components</li>
+                        </ul>
+                    </div>
+
+                    <div class="question-card">
+                        <h3 class="question-text">In Natural Language Processing, what does the term 'tokenization' refer to?</h3>
+                        <ul class="options-list">
+                            <li class="option">The process of converting words into their root forms</li>
+                            <li class="option">Identifying the parts of speech in a sentence</li>
+                            <li class="option selected">Breaking text into words, phrases, or other meaningful elements</li>
+                            <li class="option">Translating text from one language to another</li>
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between;">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn btn-primary" id="submitExamBtn">
+                            Submit Exam <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card results-container" id="resultsContainer">
+                    <h2 class="card-title"><i class="fas fa-chart-bar"></i> Exam Results</h2>
+
+                    <div class="score-card">
+                        <h3>Your Score</h3>
+                        <div class="score-value">85%</div>
+                        <p>You scored 17 out of 20 questions correctly</p>
+                    </div>
+
+                    <div class="performance-chart">
+                        <div class="chart-bar" style="height: 80%;">
+                            <div class="chart-label">ML</div>
+                        </div>
+                        <div class="chart-bar" style="height: 65%;">
+                            <div class="chart-label">NLP</div>
+                        </div>
+                        <div class="chart-bar" style="height: 90%;">
+                            <div class="chart-label">CV</div>
+                        </div>
+                        <div class="chart-bar" style="height: 70%;">
+                            <div class="chart-label">RL</div>
+                        </div>
+                        <div class="chart-bar" style="height: 50%;">
+                            <div class="chart-label">DL</div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-section">
+                        <h3 class="card-title"><i class="fas fa-comment-alt"></i> AI Feedback & Recommendations</h3>
+
+                        <div class="feedback-item">
+                            <h4>Deep Learning Concepts</h4>
+                            <p>You struggled with questions related to neural network architectures and backpropagation. Consider reviewing these topics:</p>
+                            <ul>
+                                <li>Convolutional Neural Networks (CNNs)</li>
+                                <li>Recurrent Neural Networks (RNNs)</li>
+                                <li>Backpropagation algorithm</li>
+                            </ul>
+                        </div>
+
+                        <div class="feedback-item">
+                            <h4>Reinforcement Learning</h4>
+                            <p>Your understanding of Q-learning and policy gradients needs improvement. We recommend practicing with:</p>
+                            <ul>
+                                <li>Markov Decision Processes</li>
+                                <li>Value iteration algorithms</li>
+                                <li>Exploration vs exploitation trade-off</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-redo"></i> Retake Exam
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download"></i> Download Report (PDF)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div class="auth-container hidden" id="authModal">
+        <div class="auth-tabs">
+            <div class="auth-tab active" id="loginTab">Login</div>
+            <div class="auth-tab" id="signupTab">Sign Up</div>
+        </div>
+
+        <div id="loginForm">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" placeholder="Enter your password">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;">Login</button>
+        </div>
+
+        <div id="signupForm" class="hidden">
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" placeholder="Confirm your password">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;">Sign Up</button>
+        </div>
+
+        <button class="btn btn-outline" style="width: 100%; margin-top: 15px;" id="closeAuthModal">
+            <i class="fas fa-times"></i> Close
+        </button>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const generateExamBtn = document.getElementById('generateExamBtn');
+        const submitExamBtn = document.getElementById('submitExamBtn');
+        const quizContainer = document.getElementById('quizContainer');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const authModal = document.getElementById('authModal');
+        const closeAuthModal = document.getElementById('closeAuthModal');
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const uploadArea = document.getElementById('uploadArea');
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Generate Exam
+        generateExamBtn.addEventListener('click', () => {
+            quizContainer.style.display = 'block';
+            startTimer(25 * 60); // 25 minutes
+        });
+
+        // Submit Exam
+        submitExamBtn.addEventListener('click', () => {
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+        });
+
+        // Authentication
+        loginBtn.addEventListener('click', () => {
+            authModal.classList.remove('hidden');
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+        });
+
+        signupBtn.addEventListener('click', () => {
+            authModal.classList.remove('hidden');
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        });
+
+        closeAuthModal.addEventListener('click', () => {
+            authModal.classList.add('hidden');
+        });
+
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+        });
+
+        signupTab.addEventListener('click', () => {
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        });
+
+        // Option Selection
+        const optionCards = document.querySelectorAll('.option-card');
+        optionCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const parent = card.parentElement;
+                const siblings = parent.querySelectorAll('.option-card');
+                siblings.forEach(sibling => sibling.classList.remove('selected'));
+                card.classList.add('selected');
+            });
+        });
+
+        // Quiz Option Selection
+        const quizOptions = document.querySelectorAll('.option');
+        quizOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const parent = option.parentElement;
+                const siblings = parent.querySelectorAll('.option');
+                siblings.forEach(sibling => sibling.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // File Upload
+        uploadArea.addEventListener('click', () => {
+            alert('File upload dialog would open here in a real application');
+        });
+
+        // Timer Function
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const timerDisplay = document.getElementById('timerDisplay');
+
+            const interval = setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerDisplay.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    timerDisplay.textContent = "Time's up!";
+                    submitExamBtn.click();
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
