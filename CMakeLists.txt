@@ -27,4 +27,7 @@ add_executable(c_and_cpp
         upperTolower.c
         Quadratic.c
         tax.c
-        tax.h)
+        tax.h
+        calc.c
+        calc.h
+        tempAndlogicOps.c)

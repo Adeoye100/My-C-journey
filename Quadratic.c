@@ -11,6 +11,7 @@ int main(){
     {
         double x = 0.0;
 
+        double n;
         while (x * x <= n) {
             x += 0.0001;
         }
