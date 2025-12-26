@@ -30,4 +30,6 @@ add_executable(c_and_cpp
         tax.h
         calc.c
         calc.h
-        tempAndlogicOps.c)
+        tempAndlogicOps.c
+        ../../../.config/JetBrains/CLion2025.3/extensions/com.intellij.database/data/aggregators/function.c
+        ../../../.config/JetBrains/CLion2025.3/extensions/com.intellij.database/data/aggregators/returnFunction.c)
