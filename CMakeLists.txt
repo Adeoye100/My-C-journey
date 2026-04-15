@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 4.1)
+project(CPP)
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(CPP main.cpp
+        Assignment/Odd'n'even.cpp
+        Assignment/Timetable.cpp
+        Countdown.cpp
+        Assignment/Rectangle.cpp)
