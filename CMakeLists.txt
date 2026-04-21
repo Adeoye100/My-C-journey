@@ -7,4 +7,13 @@ add_executable(CPP main.cpp
         Assignment/Odd'n'even.cpp
         Assignment/Timetable.cpp
         Countdown.cpp
-        Assignment/Rectangle.cpp)
+        Assignment/Rectangle.cpp
+        ClassPrac/main.cpp
+        ClassPrac/main2.cpp
+        ClassPrac/block.cpp
+        brocode.cpp
+        brocode.cpp
+        brocode2.cpp
+        RandomgenpseudorandomNum.cpp
+        number_guessingLoop.cpp
+        FunctionHBD.cpp)

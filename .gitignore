@@ -1,0 +1,38 @@
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea/
+*.iml
+out/
+gen/
+
+# CMake
+cmake-build-debug/
+cmake-build-release/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Compiled Binaries (no extension)
+main
+main2
+brocode
+brocode2
+number_guessingLoop
+pseudorandomNum
+ClassPrac/main
+ClassPrac/main2
+Assignment/Odd'n'even
+Assignment/Rectangle
+Assignment/Timetable
+prac
+
+# Other binary/object files
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
