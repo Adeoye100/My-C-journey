@@ -16,4 +16,8 @@ add_executable(CPP main.cpp
         brocode2.cpp
         RandomgenpseudorandomNum.cpp
         number_guessingLoop.cpp
-        FunctionHBD.cpp)
+        FunctionHBD.cpp
+        Assignment/Arrayreverse.cpp
+        Assignment/Even_Odd_Array.cpp
+        Assignment/Number_small_Array.cpp
+        Assignment/Arrayreverse.cpp)
