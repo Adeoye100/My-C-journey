@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(CPP main.cpp
         Assignment/Odd'n'even.cpp
-        Assignment/Timetable.cpp
+        Assignment/Multipication_Table.cpp
         Countdown.cpp
         Assignment/Rectangle.cpp
         ClassPrac/main.cpp
@@ -20,4 +20,7 @@ add_executable(CPP main.cpp
         Assignment/Arrayreverse.cpp
         Assignment/Even_Odd_Array.cpp
         Assignment/Number_small_Array.cpp
-        Assignment/Arrayreverse.cpp)
+        Assignment/Arrayreverse.cpp
+        Assignment/3by3_Array_Matrix.cpp
+        Assignment/Array_Sort_Ascend.cpp
+        ClassPrac/main3.cpp)
