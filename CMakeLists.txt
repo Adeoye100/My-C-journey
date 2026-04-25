@@ -23,4 +23,5 @@ add_executable(CPP main.cpp
         Assignment/Arrayreverse.cpp
         Assignment/3by3_Array_Matrix.cpp
         Assignment/Array_Sort_Ascend.cpp
-        ClassPrac/main3.cpp)
+        ClassPrac/main3.cpp
+        Assignment/Market_Receipt.cpp)

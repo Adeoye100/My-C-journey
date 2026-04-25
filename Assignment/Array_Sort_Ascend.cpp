@@ -12,9 +12,15 @@ int main() {
     cout << "Enter the size of the array: ";
     cin >> n;
 
+    /*! Dynamic Array:
+     * Allocates memory at runtime, and store address of the Array.
+     */
+
     int* arr = new int[n];
 
     cout << "Enter the " << n << " numbers:\n";
+    /* ~ Input Loop */
+
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
@@ -28,6 +34,26 @@ int main() {
     }
     cout << endl;
 
+    //! Memory CleaUp.
     delete[] arr;
+
+    /* * Or:
+
+    int n;
+
+    cout << "How many numbers? ";
+    cin >> n;
+
+    int arr[n]; // simpler (stack allocation)
+
+    cout << "Enter numbers:\n";
+    for (int i = 0; i < n; i++) cin >> arr[i];
+
+    sort(arr, arr + n);
+
+    for (int i = 0; i < n; i++) cout << arr[i] << " ";
+
+    */
+
     return 0;
 }
