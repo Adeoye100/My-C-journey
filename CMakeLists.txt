@@ -25,4 +25,11 @@ add_executable(CPP main.cpp
         Assignment/Array_Sort_Ascend.cpp
         ClassPrac/main3.cpp
         Assignment/Market_Receipt.cpp
-        "Assignment/Student_Record .cpp")
+        "Assignment/Student_Record .cpp"
+        Function.cpp
+        Assignment/Array_Reverse_Search_spaceRemoval.cpp
+        Assignment/Array_Reverse_Search_spaceRemoval.cpp
+        returnkey_word.cpp
+        Newname_ConcatFunction.cpp
+        Function_Overloading.cpp
+        Local_&Global_variables.cpp)
