@@ -30,6 +30,11 @@ add_executable(CPP main.cpp
         Assignment/Array_Reverse_Search_spaceRemoval.cpp
         Assignment/Array_Reverse_Search_spaceRemoval.cpp
         returnkey_word.cpp
-        Newname_ConcatFunction.cpp
+        Function_Newname_Concat.cpp
         Function_Overloading.cpp
-        Local_&Global_variables.cpp)
+        Function_banking.cpp
+        Function_Rock_paper_scissors.cpp
+        Array.cpp
+        sizeOF_operator.cpp
+        Array_iterate_element.cpp
+        ForEach_Loop.cpp)
