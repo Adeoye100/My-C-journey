@@ -60,8 +60,11 @@ int main() {
       cout << "4. Exit\n";
       cin >> choice;
 
-      cin.clear();
-      fflush(stdin);
+      // cin.clear();
+      // fflush(stdin);
+
+      cin.clear(); // Clear error flags
+      cin.ignore(10000, '\n'); // Discard bad characters up to the next newline
 
       switch (choice) {
           case 1:
@@ -69,12 +72,12 @@ int main() {
               break;
 
           case 2:
-              balance = deposit();
+              balance += deposit(); // or balance = balance + deposit();
               showbalance(balance);
               break;
 
           case 3:
-              balance = withdraw(balance);
+              balance -= withdraw(balance);
               showbalance(balance);
               break;
 

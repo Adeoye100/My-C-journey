@@ -37,4 +37,13 @@ add_executable(CPP main.cpp
         Array.cpp
         sizeOF_operator.cpp
         Array_iterate_element.cpp
-        ForEach_Loop.cpp)
+        ForEach_Loop.cpp
+        Array_search_num.cpp
+        ClassPrac/obj.cpp
+        ClassPrac/si_oop.cpp
+        ClassPrac/inheritance.cpp
+        ClassPrac/encapsulation.cpp
+        Array_bubble_sort.cpp
+        "Fill_function .cpp"
+        AcceptingUserio_Array.cpp
+        multidimensional_array.cpp)
