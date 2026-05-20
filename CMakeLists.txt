@@ -46,4 +46,14 @@ add_executable(CPP main.cpp
         Array_bubble_sort.cpp
         "Fill_function .cpp"
         AcceptingUserio_Array.cpp
-        multidimensional_array.cpp)
+        multidimensional_array.cpp
+        Array_question.cpp
+        Memory_address.cpp
+        ClassPrac/fileHandling.cpp
+        "file handle/fileHandling.cpp"
+        "file handle/fileHanling_ifstream_02.cpp"
+        "file handle/fileHanling_ifstream_02.cpp"
+        "file handle/fileHanling_ifstream_02.cpp"
+        Const_Parameters.cpp
+        Pass_reference&Pass_value.cpp
+        luhnAlgorithm_calculator.cpp)
