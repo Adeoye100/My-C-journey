@@ -56,4 +56,18 @@ add_executable(CPP main.cpp
         "file handle/fileHanling_ifstream_02.cpp"
         Const_Parameters.cpp
         Pass_reference&Pass_value.cpp
-        luhnAlgorithm_calculator.cpp)
+        luhnAlgorithm_calculator.cpp
+        Pointer/pointers.cpp
+        Pointer/Null_Values.cpp
+        Pointer/tic_tacToe.cpp
+        ud/Dynamic_memory.cpp
+        ud/Recursion.cpp
+        "ud/Function_Templates .cpp"
+        ud/structs.cpp
+        " Pass_Structs_as_Arguments.cpp"
+        ud/Enums.cpp
+        ud/OOP.cpp
+        ud/constructors.cpp
+        ud/Constructor_Overloading.cpp
+        " Getters_Setters.cpp"
+        ud/innheritance.cpp)
