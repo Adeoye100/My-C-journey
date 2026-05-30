@@ -70,4 +70,4 @@ add_executable(CPP main.cpp
         ud/constructors.cpp
         ud/Constructor_Overloading.cpp
         " Getters_Setters.cpp"
-        ud/innheritance.cpp)
+        ud/inheritance.cpp)
